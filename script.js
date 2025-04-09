@@ -88,31 +88,39 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sticky header behavior
     const header = document.querySelector('header');
     let lastScroll = 0;
-    const scrollThreshold = 100; // pixels to scroll before showing navbar
+    const scrollThreshold = 100;
 
     const updateHeader = () => {
-        const currentScroll = window.scrollY;
+        const currentScroll = window.pageYOffset;
         
-        if (currentScroll <= 0) {
-            header.style.transform = 'translateY(0)';
-        } else if (currentScroll > lastScroll) {
-            header.style.transform = 'translateY(-100%)';
-        } else {
-            header.style.transform = 'translateY(0)';
-        }
-        
-        if (window.innerWidth <= 768) { // Only apply on mobile
-            if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+        if (window.innerWidth <= 768) {
+            if (currentScroll <= 0) {
+                header.classList.remove('visible');
+            } else if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
                 // Scrolling down
                 header.classList.remove('visible');
             } else {
                 // Scrolling up
                 header.classList.add('visible');
             }
+        } else {
+            // Desktop behavior
+            if (currentScroll <= 0) {
+                header.style.transform = 'translateY(0)';
+            } else if (currentScroll > lastScroll) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
         }
         
         lastScroll = currentScroll;
     };
+
+    // Initial state for mobile
+    if (window.innerWidth <= 768) {
+        header.classList.remove('visible');
+    }
 
     let ticking = false;
     window.addEventListener('scroll', () => {
@@ -122,6 +130,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 ticking = false;
             });
             ticking = true;
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth <= 768) {
+            header.classList.remove('visible');
+        } else {
+            header.classList.remove('visible');
+            header.style.transform = 'translateY(0)';
         }
     });
 
