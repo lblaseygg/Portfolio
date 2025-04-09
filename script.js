@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sticky header behavior
     const header = document.querySelector('header');
     let lastScroll = 0;
+    const scrollThreshold = 100; // pixels to scroll before showing navbar
 
     const updateHeader = () => {
         const currentScroll = window.scrollY;
@@ -98,6 +99,16 @@ document.addEventListener('DOMContentLoaded', () => {
             header.style.transform = 'translateY(-100%)';
         } else {
             header.style.transform = 'translateY(0)';
+        }
+        
+        if (window.innerWidth <= 768) { // Only apply on mobile
+            if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+                // Scrolling down
+                header.classList.remove('visible');
+            } else {
+                // Scrolling up
+                header.classList.add('visible');
+            }
         }
         
         lastScroll = currentScroll;
@@ -191,4 +202,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         qrCode.appendChild(grid);
     }
+
+    // Smooth scrolling for navigation links in mobile navbar
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 }); 
