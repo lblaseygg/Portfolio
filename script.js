@@ -88,41 +88,41 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sticky header behavior
     const header = document.querySelector('header');
     let lastScroll = 0;
-    const scrollThreshold = 100;
+    const scrollThreshold = 50; // Reduced threshold for faster response
+    let ticking = false;
 
     const updateHeader = () => {
         const currentScroll = window.pageYOffset;
         
         if (window.innerWidth <= 768) {
-            if (currentScroll <= 0) {
-                header.classList.remove('visible');
-            } else if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
-                // Scrolling down
-                header.classList.remove('visible');
-            } else {
-                // Scrolling up
+            if (currentScroll > scrollThreshold) {
+                // Show navbar when scrolling
                 header.classList.add('visible');
+            } else {
+                // Hide at the very top
+                header.classList.remove('visible');
             }
         } else {
             // Desktop behavior
-            if (currentScroll <= 0) {
+            if (currentScroll > scrollThreshold) {
+                // Show navbar when scrolling
                 header.style.transform = 'translateY(0)';
-            } else if (currentScroll > lastScroll) {
-                header.style.transform = 'translateY(-100%)';
             } else {
-                header.style.transform = 'translateY(0)';
+                // Hide at the very top
+                header.style.transform = 'translateY(-100%)';
             }
         }
         
         lastScroll = currentScroll;
     };
 
-    // Initial state for mobile
+    // Initial state - hide navbar on both mobile and desktop
     if (window.innerWidth <= 768) {
         header.classList.remove('visible');
+    } else {
+        header.style.transform = 'translateY(-100%)';
     }
 
-    let ticking = false;
     window.addEventListener('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
@@ -137,9 +137,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
         if (window.innerWidth <= 768) {
             header.classList.remove('visible');
+            header.style.transform = '';
         } else {
             header.classList.remove('visible');
-            header.style.transform = 'translateY(0)';
+            header.style.transform = 'translateY(-100%)';
         }
     });
 
