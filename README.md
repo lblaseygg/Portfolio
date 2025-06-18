@@ -20,22 +20,23 @@ A modern, responsive portfolio website showcasing my projects and skills as a so
 ## Projects Showcased
 
 1. AirBnB Clone
-   - Full-stack web application
-   - Features property listings and booking system
-   - Built with Python, HTML, CSS, and JavaScript
-   - Demonstrates full-stack development skills
+- Full-stack web application
+- Features property listings and booking system
+- Built with Python, HTML, CSS, and JavaScript
+- Demonstrates full-stack development skills
 
 2. Budget Tracker
-   - Desktop application for personal finance
-   - Features expense tracking and visualization
-   - Built with Python
-   - Showcases data management and UI design
+- Desktop application for personal finance
+- Features expense tracking and visualization
+- Built with Python
+- Showcases data management and UI design
 
-3. Login Page Project
-   - Secure authentication system
-   - User-friendly interface
-   - Features form validation and error handling
-   - Demonstrates front-end development skills
+3.DUO Budget Planner
+   - Shared Budget Management: Create and track shared savings goals with your partner
+   - Visual Progress Tracking: Monitor your progress with intuitive progress bars and statistics
+   - Monthly Planning: Get automatic monthly savings suggestions based on your goals
+   - Responsive Design: Works seamlessly on desktop and mobile devices
+   - Modern UI: Clean, intuitive interface with smooth animations and transitions
 
 ## Setup
 

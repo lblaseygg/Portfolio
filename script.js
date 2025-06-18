@@ -62,6 +62,18 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(element);
     });
 
+    // Special handling for subtitle
+    const subtitle = document.querySelector('.subtitle');
+    if (subtitle) {
+        subtitle.style.opacity = '0';
+        subtitle.style.transform = 'translateY(20px)';
+        subtitle.style.transition = 'opacity 2s ease-out, transform 2s ease-out';
+        setTimeout(() => {
+            subtitle.style.opacity = '1';
+            subtitle.style.transform = 'translateY(0)';
+        }, 2000);
+    }
+
     // Parallax effect for hero section
     let lastScrollY = window.scrollY;
     const hero = document.querySelector('.hero');
@@ -88,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sticky header behavior
     const header = document.querySelector('header');
     let lastScroll = 0;
-    const scrollThreshold = 50; // Reduced threshold for faster response
+    const scrollThreshold = 50;
     let ticking = false;
 
     const updateHeader = () => {
@@ -96,19 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (window.innerWidth <= 768) {
             if (currentScroll > scrollThreshold) {
-                // Show navbar when scrolling
                 header.classList.add('visible');
             } else {
-                // Hide at the very top
                 header.classList.remove('visible');
             }
         } else {
-            // Desktop behavior
             if (currentScroll > scrollThreshold) {
-                // Show navbar when scrolling
                 header.style.transform = 'translateY(0)';
             } else {
-                // Hide at the very top
                 header.style.transform = 'translateY(-100%)';
             }
         }
@@ -184,43 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
             item.style.transform = 'translateY(0)';
         });
     });
-
-    // Add typing effect to hero subtitle
-    const subtitle = document.querySelector('.subtitle');
-    if (subtitle) {
-        const text = subtitle.textContent;
-        subtitle.textContent = '';
-        let i = 0;
-        
-        const typeWriter = () => {
-            if (i < text.length) {
-                subtitle.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            }
-        };
-        
-        setTimeout(typeWriter, 1000);
-    }
-
-    // Generate QR Code pattern (simplified version)
-    const qrCode = document.querySelector('.qr-code');
-    if (qrCode) {
-        const size = 10;
-        const grid = document.createElement('div');
-        grid.style.display = 'grid';
-        grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-        grid.style.width = '100%';
-        grid.style.height = '100%';
-
-        for (let i = 0; i < size * size; i++) {
-            const cell = document.createElement('div');
-            cell.style.backgroundColor = Math.random() > 0.5 ? '#000' : '#fff';
-            grid.appendChild(cell);
-        }
-
-        qrCode.appendChild(grid);
-    }
 
     // Smooth scrolling for navigation links in mobile navbar
     document.querySelectorAll('nav a').forEach(anchor => {
